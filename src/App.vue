@@ -53,7 +53,8 @@ export default {
   text-align: center;
   color: white;
   /* margin-top: 60px; */
-  background-image: url('./assets/Theme/clear_sky.jpg');
+  background-image: url('./assets/Theme/mist.jpg');
+  background-size: cover;
   box-sizing: border-box;
 }
 html, body{
