@@ -22,6 +22,7 @@
     .searchbar__container{
         display: flex;
         justify-content: space-between;
+        position: relative;
     }
     .searchbar__container input{
         width: 70%;
@@ -41,10 +42,12 @@
         height: 5rem;
         padding: 1px 2px;
         margin: 0;
-        width: 15%;
+        width: 5rem;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: red;
+        position: absolute;
+        right:-3rem;
     }
 </style>

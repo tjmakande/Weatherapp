@@ -10,7 +10,7 @@
         :currTemp="TodayWeather.main.temp"
         :city="TodayWeather.name"
       />
-      <WeatherPanelVue />
+      <WeatherPanelVue :Weather="TodayWeather"/>
     </div>
   </div>
 </template>
@@ -53,7 +53,6 @@ export default {
     getBackgroundTheme(){
         const code = this.TodayWeather.weather[0].id;
         let theme;
-    console.log(code);
         switch(true) {
           case (code < 250): theme = thunderstorm;
             break;
