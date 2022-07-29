@@ -59,6 +59,12 @@ import AttributeRow from './AttributeRow.vue';
         padding: 0 3rem;
     }
 
+    @media (max-width: 800px){
+        .panel__container{
+            width: unset
+        }
+    }
+
     .panel__details__wrapper{
         width: 100%;
         border-bottom: 1px solid gray;

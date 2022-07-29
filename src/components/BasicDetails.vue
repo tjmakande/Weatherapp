@@ -78,4 +78,18 @@
         /* width: 80%; */
         justify-content: space-evenly;
     }
+
+    @media (max-width: 800px){
+        .basic__details__container{
+            width: 100%;
+        }
+
+        .basic__details__wrapper{
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 70%;
+            margin: 0 auto;
+        }
+    }
 </style>

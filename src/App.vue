@@ -1,7 +1,7 @@
 <template>
   <div 
-    v-if="is_data_fetched" 
     class="app__container" 
+    v-if="is_data_fetched"
     :style="{backgroundImage: `url(${getBackgroundTheme})`}"
   >
     <div class="app__wrapper">
@@ -11,6 +11,11 @@
         :city="TodayWeather.name"
       />
       <WeatherPanelVue :Weather="TodayWeather"/>
+    </div>
+  </div>
+  <div class="error__container" v-if="failed_to_fetch" :style="{backgroundImage: `url(${errorBG})`, backgroundSize: 'cover'}">
+    <div class="error__wrapper">
+      <h3 >Unable to load the data. Please try again later...</h3>
     </div>
   </div>
 </template>
@@ -44,12 +49,17 @@ export default {
       })
       .then(() => 
         this.is_data_fetched = true
+      ).catch(() => 
+        this.failed_to_fetch = true
       )
   },
   mounted(){
     console.log('mounted')
   },
   computed:{
+    errorBG(){
+      return clearsky;
+    },
     getBackgroundTheme(){
         const code = this.TodayWeather.weather[0].id;
         let theme;
@@ -80,6 +90,7 @@ export default {
     return{
       TodayWeather: null,
       is_data_fetched: false,
+      failed_to_fetch: false,
       backgroundTheme: null
     }
   }
@@ -87,6 +98,22 @@ export default {
 </script>
 
 <style>
+
+.error__container{
+  height: 100vh;
+}
+
+.error__wrapper{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.701);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
 .app__container{
  text-align: center;
  color: white;
@@ -100,6 +127,13 @@ export default {
   flex-direction: row;
   background-color:#2c3e5057;
 }
+
+@media (max-width: 800px){
+  .app__wrapper{
+    flex-direction: column;
+  }
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
