@@ -4,7 +4,8 @@ import AttributeRow from './AttributeRow.vue';
 
     export default {
         props:{
-            Weather: Object
+            Weather: Object,
+            showPanel: Boolean
         },
         data(){
             return{
@@ -29,7 +30,7 @@ import AttributeRow from './AttributeRow.vue';
 </script>
 
 <template>
-    <div class="panel__container">
+    <div :class="showPanel ? 'panel__container show_panel' : 'panel__container hide_panel' ">
         <SearchBarVue />
 
         <div class="panel__details__wrapper">
@@ -61,8 +62,40 @@ import AttributeRow from './AttributeRow.vue';
 
     @media (max-width: 800px){
         .panel__container{
-            width: unset
+            width: unset;
         }
+
+        .show_panel{
+            animation: showPanel;
+            animation-duration: 1s;
+            animation-fill-mode:forwards;
+        }
+
+        .hide_panel{
+            animation: hidePanel;
+            animation-duration: 1s;
+            animation-fill-mode:forwards;
+        }
+
+        @keyframes showPanel {
+            from{
+                transform: translateY(0)
+            }
+            to{
+                transform: translateY(-100vh)
+            }
+        }
+
+        @keyframes hidePanel {
+            from{
+                transform: translateY(-100vh)
+            }
+            to{
+                transform: translateY(0)
+            }
+            
+        }
+
     }
 
     .panel__details__wrapper{

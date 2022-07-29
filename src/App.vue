@@ -10,9 +10,26 @@
         :currTemp="TodayWeather.main.temp"
         :city="TodayWeather.name"
       />
-      <WeatherPanelVue :Weather="TodayWeather"/>
+      <WeatherPanelVue :Weather="TodayWeather" :showPanel="isPanelVisible"/>
+
+      <div class="mobile__arrow__container">
+        <div class="mobile__arrow__wrapper" @click="isPanelVisible = !isPanelVisible">
+          <p id="details__text">View Details</p>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 320 512"
+            id="arrow"
+          >
+            <path 
+              d="M151.5 427.8L3.5 281c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 362.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0zm17-160l148-146.8c4.7-4.7 4.7-12.3 0-17l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L160 202.7 40.3 84.2c-4.7-4.7-12.3-4.7-17 0L3.5 104c-4.7 4.7-4.7 12.3 0 17l148 146.8c4.7 4.7 12.3 4.7 17 0z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="error__container" v-if="failed_to_fetch" :style="{backgroundImage: `url(${errorBG})`, backgroundSize: 'cover'}">
     <div class="error__wrapper">
       <h3 >Unable to load the data. Please try again later...</h3>
@@ -91,13 +108,43 @@ export default {
       TodayWeather: null,
       is_data_fetched: false,
       failed_to_fetch: false,
-      backgroundTheme: null
+      backgroundTheme: null,
+      isPanelVisible: false,
     }
   }
 }
 </script>
 
 <style>
+
+#details__text{
+  color: white;
+  font-size: clamp(1rem, 3vw, 2rem);
+}
+  #arrow{
+    width: clamp(1rem, 4vw, 3rem);
+  }
+
+.mobile__arrow__container{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.201);
+  backdrop-filter: blur(5px);
+  display: none;
+}
+
+.mobile__arrow__wrapper{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  margin: 5px auto;
+  cursor: pointer;
+}
 
 .error__container{
   height: 100vh;
@@ -119,7 +166,9 @@ export default {
  color: white;
  background-size: cover;
  box-sizing: border-box;
+ overflow: hidden;
 }
+
 .app__wrapper{
   width: 100%;
   min-height: 100vh;
@@ -129,8 +178,15 @@ export default {
 }
 
 @media (max-width: 800px){
+  .app__container{
+    height: 100vh;
+  }
   .app__wrapper{
     flex-direction: column;
+  }
+
+  .mobile__arrow__container{
+    display: block;
   }
 }
 
@@ -139,6 +195,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 html, body{
   margin: 0;
   padding: 0;

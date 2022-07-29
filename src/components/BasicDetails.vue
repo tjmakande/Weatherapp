@@ -88,7 +88,6 @@
             top: 0;
             left: 0;
             right: 0;
-            width: 70%;
             margin: 0 auto;
         }
     }
