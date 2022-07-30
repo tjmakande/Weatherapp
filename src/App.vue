@@ -116,9 +116,10 @@ export default {
   color: white;
   font-size: clamp(1rem, 2.5vw, 2rem);
   margin-top: 0;
+  margin-bottom: 5px;
 }
 .arrow{
-  width: clamp(1rem, 2.8vw, 3rem);
+  width: clamp(1.2rem, 2.8vw, 3rem);
   margin-top: 0;
   transform: rotate(180deg);
 }
@@ -130,7 +131,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 10rem;
+  height: 8rem;
   background-color: rgba(0, 0, 0, 0.201);
   backdrop-filter: blur(5px);
   display: none;
@@ -153,7 +154,7 @@ export default {
 }
 
 .error__container{
-  height: 100vh;
+  height: 100%;
 }
 
 .error__wrapper{
@@ -177,7 +178,7 @@ export default {
 
 .app__wrapper{
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: row;
   background-color:#2c3e5057;
@@ -185,10 +186,11 @@ export default {
 
 @media (max-width: 920px){
   .app__container{
-    height: 100vh;
+    height: 100%;
   }
   .app__wrapper{
-    flex-direction: column;
+    display:block;
+    flex-direction: unset;
   }
 
   .mobile__arrow__container{
@@ -200,11 +202,13 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 
 html, body{
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 </style>

@@ -53,7 +53,7 @@ import AttributeRow from './AttributeRow.vue';
 <style>
     .panel__container{
         width: 40%;
-        height: 100vh;
+        height: 100%;
         overflow-y: scroll;
         background-color: rgba(0, 0, 0, 0.201);
         backdrop-filter: blur(10px);
@@ -83,13 +83,13 @@ import AttributeRow from './AttributeRow.vue';
                 transform: translateY(0)
             }
             to{
-                transform: translateY(-100vh)
+                transform: translateY(-100%)
             }
         }
 
         @keyframes hidePanel {
             from{
-                transform: translateY(-100vh)
+                transform: translateY(-100%)
             }
             to{
                 transform: translateY(0)

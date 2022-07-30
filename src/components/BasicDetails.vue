@@ -64,7 +64,7 @@
     }
     .basic__details__container{
         width: 60%;
-        height: 100vh;
+        height: 100%;
     }
 
     .basic__details__wrapper{
