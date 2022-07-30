@@ -1,11 +1,25 @@
 <script>
     export default {
+        methods:{
+            SubmitClicked() {
+                this.$emit('newLocation', this.SearchedLocation);
+            }
+        },
         props:{
             item: Function
         },
+        mounted(){
+            document
+                .querySelector('.search__location')
+                .addEventListener('keyup', e => {
+                    if(e.key === "Enter"){
+                        this.$emit('newLocation', this.SearchedLocation)
+                    }
+                })
+        },
         data(){
             return{
-
+                SearchedLocation: ''
             }
         }
     }
@@ -13,8 +27,8 @@
 
 <template>
     <div class="searchbar__container">
-        <input type="text" placeholder="Search location..."/>
-        <div> Submit </div>
+        <input class="search__location" v-model="SearchedLocation" type="text" placeholder="Search location..."/>
+        <div @click="SubmitClicked"> Submit </div>
     </div>
 </template>
 

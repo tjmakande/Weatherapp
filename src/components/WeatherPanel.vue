@@ -25,13 +25,18 @@ import AttributeRow from './AttributeRow.vue';
         },
         mounted(){
             console.log(this.Weather)
+        },
+        methods:{
+            passToParent(value){
+                this.$emit('newLocation', value);
+            }
         }
     }
 </script>
 
 <template>
     <div :class="showPanel ? 'panel__container show_panel' : 'panel__container hide_panel' ">
-        <SearchBarVue />
+        <SearchBarVue @newLocation="passToParent"/>
 
         <div class="panel__details__wrapper">
             <h3 class="panel__details__title">Weather Details</h3>

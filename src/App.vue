@@ -10,7 +10,7 @@
         :currTemp="TodayWeather.main.temp"
         :city="TodayWeather.name"
       />
-      <WeatherPanelVue :Weather="TodayWeather" :showPanel="isPanelVisible"/>
+      <WeatherPanelVue :Weather="TodayWeather" :showPanel="isPanelVisible" @newLocation="onEnteredLocation"/>
 
       <div :class="isPanelVisible ? 'mobile__arrow__container transparent_backdrop' : 'mobile__arrow__container'">
         <div class="mobile__arrow__wrapper" @click="isPanelVisible = !isPanelVisible">
@@ -56,6 +56,23 @@ export default {
   components: {
     WeatherPanelVue,
     BasicDetailsVue,
+  },
+  methods:{
+    async onEnteredLocation(location){
+        this.is_data_fetched = false;
+        this.failed_to_fetch = false;
+        this.isPanelVisible = false;
+        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.VUE_APP_MY_KEY}`)
+          .then(res => res.json())
+          .then(json => {
+            this.TodayWeather = json;
+          })
+          .then(() => 
+            this.is_data_fetched = true
+          ).catch(() => 
+            this.failed_to_fetch = true
+          )
+    }
   },
   async created(){
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=nuernberg&units=metric&appid=${process.env.VUE_APP_MY_KEY}`)
