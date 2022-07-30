@@ -15,7 +15,6 @@
             }
         },
         mounted(){
-            console.log(this.currTemp)
             this.getEntireDate();
         },
         methods:{

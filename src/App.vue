@@ -32,7 +32,8 @@
 
   <div class="error__container" v-if="failed_to_fetch" :style="{backgroundImage: `url(${errorBG})`, backgroundSize: 'cover'}">
     <div class="error__wrapper">
-      <h3 >Unable to load the data. Please try again later...</h3>
+      <h2>{{errorMessage !== '' ? errorMessage : 'Unable to load the data. Please try again later...' }}</h2>
+      <p @click="refreshWindow">Reset</p>
     </div>
   </div>
 </template>
@@ -58,19 +59,27 @@ export default {
     BasicDetailsVue,
   },
   methods:{
+    refreshWindow(){
+      window.location.href = '/';
+    },
     async onEnteredLocation(location){
         this.is_data_fetched = false;
         this.failed_to_fetch = false;
         this.isPanelVisible = false;
+        this.errorMessage = '';
         await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.VUE_APP_MY_KEY}`)
           .then(res => res.json())
           .then(json => {
+            if(json.cod === '404') return Promise.reject(json.message);
             this.TodayWeather = json;
           })
           .then(() => 
             this.is_data_fetched = true
-          ).catch(() => 
-            this.failed_to_fetch = true
+          ).catch((err) =>{
+            this.errorMessage = err;
+            this.failed_to_fetch = true;
+
+          }
           )
     }
   },
@@ -122,6 +131,7 @@ export default {
       failed_to_fetch: false,
       backgroundTheme: null,
       isPanelVisible: false,
+      errorMessage: ''
     }
   }
 }
@@ -182,8 +192,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   color: white;
+  text-align: center;
 }
+
+
 
 .app__container{
  text-align: center;
@@ -191,6 +205,7 @@ export default {
  background-size: cover;
  box-sizing: border-box;
  overflow: hidden;
+ height:100%;
 }
 
 .app__wrapper{

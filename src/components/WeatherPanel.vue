@@ -23,9 +23,6 @@ import AttributeRow from './AttributeRow.vue';
             SearchBarVue,
             AttributeRow,
         },
-        mounted(){
-            console.log(this.Weather)
-        },
         methods:{
             passToParent(value){
                 this.$emit('newLocation', value);

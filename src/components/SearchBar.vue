@@ -60,7 +60,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: red;
+        background-color: #517374;
         position: absolute;
         right:-3rem;
     }
