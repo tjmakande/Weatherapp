@@ -12,13 +12,13 @@
       />
       <WeatherPanelVue :Weather="TodayWeather" :showPanel="isPanelVisible"/>
 
-      <div class="mobile__arrow__container">
+      <div :class="isPanelVisible ? 'mobile__arrow__container transparent_backdrop' : 'mobile__arrow__container'">
         <div class="mobile__arrow__wrapper" @click="isPanelVisible = !isPanelVisible">
-          <p id="details__text">View Details</p>
+          <p id="details__text">{{isPanelVisible ? 'Hide Details': 'View Details'}}</p>
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 320 512"
-            id="arrow"
+            :class="isPanelVisible ? 'arrow turned' : 'arrow' "
           >
             <path 
               d="M151.5 427.8L3.5 281c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 362.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0zm17-160l148-146.8c4.7-4.7 4.7-12.3 0-17l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L160 202.7 40.3 84.2c-4.7-4.7-12.3-4.7-17 0L3.5 104c-4.7 4.7-4.7 12.3 0 17l148 146.8c4.7 4.7 12.3 4.7 17 0z"
@@ -58,7 +58,6 @@ export default {
     BasicDetailsVue,
   },
   async created(){
-    console.log('created')
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=nuernberg&units=metric&appid=${process.env.VUE_APP_MY_KEY}`)
       .then(res => res.json())
       .then(json => {
@@ -69,9 +68,6 @@ export default {
       ).catch(() => 
         this.failed_to_fetch = true
       )
-  },
-  mounted(){
-    console.log('mounted')
   },
   computed:{
     errorBG(){
@@ -99,7 +95,6 @@ export default {
             break;
           default: theme = clearsky
         }
-        console.log(theme);
           return theme;
     }
   },
@@ -119,11 +114,17 @@ export default {
 
 #details__text{
   color: white;
-  font-size: clamp(1rem, 3vw, 2rem);
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  margin-top: 0;
 }
-  #arrow{
-    width: clamp(1rem, 4vw, 3rem);
-  }
+.arrow{
+  width: clamp(1rem, 2.8vw, 3rem);
+  margin-top: 0;
+  transform: rotate(180deg);
+}
+.turned{
+  transform: rotate(0deg);
+}
 
 .mobile__arrow__container{
   position: absolute;
@@ -133,6 +134,11 @@ export default {
   background-color: rgba(0, 0, 0, 0.201);
   backdrop-filter: blur(5px);
   display: none;
+  transition: .5s;
+}
+.transparent_backdrop{
+  background: transparent;
+  backdrop-filter: unset;
 }
 
 .mobile__arrow__wrapper{
@@ -141,7 +147,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 8rem;
+  width: 12rem;
   margin: 5px auto;
   cursor: pointer;
 }
@@ -177,7 +183,7 @@ export default {
   background-color:#2c3e5057;
 }
 
-@media (max-width: 800px){
+@media (max-width: 920px){
   .app__container{
     height: 100vh;
   }

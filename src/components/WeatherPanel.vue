@@ -54,13 +54,14 @@ import AttributeRow from './AttributeRow.vue';
     .panel__container{
         width: 40%;
         height: 100vh;
+        overflow-y: scroll;
         background-color: rgba(0, 0, 0, 0.201);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(10px);
         position: relative;
         padding: 0 3rem;
     }
 
-    @media (max-width: 800px){
+    @media (max-width: 920px){
         .panel__container{
             width: unset;
         }

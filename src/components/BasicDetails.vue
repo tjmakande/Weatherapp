@@ -79,7 +79,7 @@
         justify-content: space-evenly;
     }
 
-    @media (max-width: 800px){
+    @media (max-width: 920px){
         .basic__details__container{
             width: 100%;
         }
